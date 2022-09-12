@@ -7,7 +7,7 @@ namespace CursoEntityCore.Models
     {
         public int ArticuloId { get; set; }
         
-        [Column("Articulo")]
+        [Column("Titulo")]
         public string TituloArticulo { get; set; }
         
         public string Descripcion { get; set; }

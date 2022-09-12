@@ -41,7 +41,7 @@ namespace CursoEntityCore.Migrations
                     b.Property<string>("TituloArticulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Articulo");
+                        .HasColumnName("Titulo");
 
                     b.HasKey("ArticuloId");
 

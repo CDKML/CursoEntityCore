@@ -4,7 +4,7 @@
 
 namespace CursoEntityCore.Migrations
 {
-    public partial class RenombrarTablaYColumnaArticuloBD : Migration
+    public partial class RenombrarTablaTbl_ArticuloYColumnaTituloArticuloBD : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace CursoEntityCore.Migrations
             migrationBuilder.RenameColumn(
                 name: "TituloArticulo",
                 table: "Tbl_Articulo",
-                newName: "Articulo");
+                newName: "Titulo");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Tbl_Articulo",
@@ -38,7 +38,7 @@ namespace CursoEntityCore.Migrations
                 newName: "Articulo");
 
             migrationBuilder.RenameColumn(
-                name: "Articulo",
+                name: "Titulo",
                 table: "Articulo",
                 newName: "TituloArticulo");
 

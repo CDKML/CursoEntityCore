@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoEntityCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220912150041_RenombrarTablaYColumnaArticuloBD")]
-    partial class RenombrarTablaYColumnaArticuloBD
+    [Migration("20220912152046_RenombrarTablaTbl_ArticuloYColumnaTituloArticuloBD")]
+    partial class RenombrarTablaTbl_ArticuloYColumnaTituloArticuloBD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,7 @@ namespace CursoEntityCore.Migrations
                     b.Property<string>("TituloArticulo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Articulo");
+                        .HasColumnName("Titulo");
 
                     b.HasKey("ArticuloId");
 
