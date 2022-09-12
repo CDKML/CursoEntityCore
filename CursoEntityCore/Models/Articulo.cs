@@ -10,7 +10,7 @@ namespace CursoEntityCore.Models
         public int Articulo_Id { get; set; }
         
         [Column("Titulo")]
-        [Required]
+        [Required(ErrorMessage = "El título es obligatorio")]
         [MaxLength(20)]
         public string TituloArticulo { get; set; }
 
@@ -20,6 +20,7 @@ namespace CursoEntityCore.Models
         [Range(0.1, 5.0)]
         public double Calificacion { get; set; }
 
-        public string Fecha { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Fecha { get; set; }
     }
 }
