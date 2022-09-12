@@ -16,7 +16,10 @@ namespace CursoEntityCore.Models
 
         [Required]
         public string Descripcion { get; set; }
-        
+
+        [Range(0.1, 5.0)]
+        public double Calificacion { get; set; }
+
         public string Fecha { get; set; }
     }
 }
