@@ -10,8 +10,11 @@ namespace CursoEntityCore.Models
         public int Articulo_Id { get; set; }
         
         [Column("Titulo")]
+        [Required]
+        [MaxLength(20)]
         public string TituloArticulo { get; set; }
 
+        [Required]
         public string Descripcion { get; set; }
         
         public string Fecha { get; set; }
