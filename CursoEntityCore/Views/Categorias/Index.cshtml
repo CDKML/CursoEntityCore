@@ -33,6 +33,7 @@
         <table class="table table-striped border">
             <tr>
                 <th>Nombre de categoría</th>
+                <th>Estado</th>
                 <th>Fecha de creación</th>
                 <th></th>
             </tr>
@@ -40,6 +41,7 @@
             {
                 <tr>
                     <td>@categoria.Nombre</td>
+                    <td>@categoria.Activo</td>
                     <td>@categoria.FechaCreacion</td>
                     <td>
                         <a class="btn btn-primary textwhite" asp-action="Editar" asp-route-id="@categoria.Categoria_Id">Editar</a>

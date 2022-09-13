@@ -1,6 +1,7 @@
 ﻿using CursoEntityCore.Data;
 using CursoEntityCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace CursoEntityCore.Controllers
@@ -25,8 +26,18 @@ namespace CursoEntityCore.Controllers
             //return View(listaCategorias);
 
             //Selecciona columnas específicas
-            var categorias = _contexto.Categoria.Where(n => n.Nombre == "Test 5").Select(n => n).ToList();
-            return View(categorias);
+            //var categorias = _contexto.Categoria.Where(n => n.Nombre == "Test 5").Select(n => n).ToList();
+            //List<Categoria> listaCategorias = _contexto.Categoria.ToList();
+            //var listaCategorias = _contexto.Categoria
+            //    .GroupBy(c => new { c.Activo })
+            //    .Select(c => new { c.Key, Count = c.Count() }).ToList();
+
+            //var listaCategorias = _contexto.Categoria.FromSqlRaw("SELECT * FROM Categoria where nombre like 'categoría%'").ToList();
+
+            //Interpolación de string
+            var id = 39;
+            var categoria = _contexto.Categoria.FromSqlRaw($"SELECT * FROM Categoria WHERE categoria_id = {id}").ToList();
+            return View(categoria);
         }
 
         [HttpGet]
