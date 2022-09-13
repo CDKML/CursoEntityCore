@@ -19,5 +19,10 @@ namespace CursoEntityCore.Data
         public DbSet<DetalleUsuario> DetalleUsuario { get; set; }
         
         public DbSet<Etiqueta> Etiqueta { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ArticuloEtiqueta>().HasKey(ae => new { ae.Etiqueta_Id, ae.Articulo_Id });
+        }
     }
 }
