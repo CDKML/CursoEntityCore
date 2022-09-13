@@ -18,7 +18,7 @@ namespace CursoEntityCore.Controllers
         public IActionResult Index()
         {
             //Consulta inicial con todos los datos
-            //List<Categoria> listaCategorias = _contexto.Categoria.ToList();
+            List<Categoria> listaCategorias = _contexto.Categoria.ToList();
 
             //Consulta filtrando por fecha
             //DateTime fechaComparacion = new DateTime(2022, 09, 13);
@@ -35,9 +35,9 @@ namespace CursoEntityCore.Controllers
             //var listaCategorias = _contexto.Categoria.FromSqlRaw("SELECT * FROM Categoria where nombre like 'categoría%'").ToList();
 
             //Interpolación de string
-            var id = 39;
-            var categoria = _contexto.Categoria.FromSqlRaw($"SELECT * FROM Categoria WHERE categoria_id = {id}").ToList();
-            return View(categoria);
+            //var id = 39;
+            //var categoria = _contexto.Categoria.FromSqlRaw($"SELECT * FROM Categoria WHERE categoria_id = {id}").ToList();
+            return View(listaCategorias);
         }
 
         [HttpGet]
