@@ -4,6 +4,7 @@ using CursoEntityCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoEntityCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220913085519_CreacionTablaEtiquetaBD")]
+    partial class CreacionTablaEtiquetaBD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,21 +57,6 @@ namespace CursoEntityCore.Migrations
                     b.HasIndex("Categoria_Id");
 
                     b.ToTable("Tbl_Articulo");
-                });
-
-            modelBuilder.Entity("CursoEntityCore.Models.ArticuloEtiqueta", b =>
-                {
-                    b.Property<int>("Etiqueta_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Articulo_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Etiqueta_Id", "Articulo_Id");
-
-                    b.HasIndex("Articulo_Id");
-
-                    b.ToTable("ArticuloEtiqueta");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.Categoria", b =>
@@ -174,25 +161,6 @@ namespace CursoEntityCore.Migrations
                     b.Navigation("Categoria");
                 });
 
-            modelBuilder.Entity("CursoEntityCore.Models.ArticuloEtiqueta", b =>
-                {
-                    b.HasOne("CursoEntityCore.Models.Articulo", "Articulo")
-                        .WithMany("ArticuloEtiqueta")
-                        .HasForeignKey("Articulo_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CursoEntityCore.Models.Etiqueta", "Etiqueta")
-                        .WithMany()
-                        .HasForeignKey("Etiqueta_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Articulo");
-
-                    b.Navigation("Etiqueta");
-                });
-
             modelBuilder.Entity("CursoEntityCore.Models.Usuario", b =>
                 {
                     b.HasOne("CursoEntityCore.Models.DetalleUsuario", "DetalleUsuario")
@@ -202,11 +170,6 @@ namespace CursoEntityCore.Migrations
                         .IsRequired();
 
                     b.Navigation("DetalleUsuario");
-                });
-
-            modelBuilder.Entity("CursoEntityCore.Models.Articulo", b =>
-                {
-                    b.Navigation("ArticuloEtiqueta");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.Categoria", b =>
