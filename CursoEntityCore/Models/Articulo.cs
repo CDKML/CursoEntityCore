@@ -15,6 +15,7 @@ namespace CursoEntityCore.Models
         public string TituloArticulo { get; set; }
 
         [Required]
+        [StringLength(500, ErrorMessage = "La descripción no debe superar los 500 caracteres")]
         public string Descripcion { get; set; }
 
         [Range(0.1, 5.0)]
