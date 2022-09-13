@@ -80,15 +80,18 @@ namespace CursoEntityCore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Editar(Articulo articulo)
+        public IActionResult Editar(ArticuloCategoriaVM articuloVM)
         {
-            if (ModelState.IsValid)
+            if (articuloVM.Articulo.Articulo_Id == 0)
             {
-                _contexto.Articulo.Update(articulo);
+                return View(articuloVM.Articulo);
+            }
+            else
+            {
+                _contexto.Articulo.Update(articuloVM.Articulo);
                 _contexto.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(articulo);
         }
 
         [HttpGet]
