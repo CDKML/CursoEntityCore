@@ -94,5 +94,30 @@ namespace CursoEntityCore.Controllers
             _contexto.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Editar(int? id)
+        {
+            if(id == null)
+            {
+                return View();
+            }
+
+            var categoria = _contexto.Categoria.FirstOrDefault(c => c.Categoria_Id == id);
+            return View(categoria);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(Categoria categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                _contexto.Categoria.Update(categoria);
+                _contexto.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(categoria);
+        }
     }
 }
