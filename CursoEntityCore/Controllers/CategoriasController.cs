@@ -1,6 +1,7 @@
 ﻿using CursoEntityCore.Data;
 using CursoEntityCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CursoEntityCore.Controllers
 {
@@ -15,7 +16,12 @@ namespace CursoEntityCore.Controllers
 
         public IActionResult Index()
         {
-            List<Categoria> listaCategorias = _contexto.Categoria.ToList();
+            //Consulta inicial con todos los datos
+            //List<Categoria> listaCategorias = _contexto.Categoria.ToList();
+
+            //Consulta filtrando por fecha
+            DateTime fechaComparacion = new DateTime(2022, 09, 13);
+            List<Categoria> listaCategorias = _contexto.Categoria.Where(f => f.FechaCreacion >= fechaComparacion).OrderByDescending(f => f.FechaCreacion).ToList();
             return View(listaCategorias);
         }
 
