@@ -8,7 +8,8 @@ namespace CursoEntityCore.Models
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Categoria_Id { get; set; }
-        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "[NULL]")]
+        //[DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "[NULL]")]
+        [Required]
         public string Nombre { get; set; }
 
         public List<Articulo> Articulo { get; set; }
