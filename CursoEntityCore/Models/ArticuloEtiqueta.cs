@@ -8,6 +8,7 @@ namespace CursoEntityCore.Models
         //[Key]
         [ForeignKey("Articulo")]
         public int Articulo_Id { get; set; }
+
         //[Key]
         [ForeignKey("Etiqueta")]
         public int Etiqueta_Id { get; set; }
