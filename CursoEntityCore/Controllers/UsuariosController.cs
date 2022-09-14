@@ -21,7 +21,6 @@ namespace CursoEntityCore.Controllers
             return View(listaUsuarios);
         }
 
-
         [HttpGet]
         public IActionResult Crear()
         {
@@ -41,7 +40,6 @@ namespace CursoEntityCore.Controllers
 
             return View();
         }
-
 
         [HttpGet]
         public IActionResult Editar(Guid? id)
@@ -93,7 +91,6 @@ namespace CursoEntityCore.Controllers
 
             return View(usuario);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

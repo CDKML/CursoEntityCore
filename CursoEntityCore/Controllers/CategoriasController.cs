@@ -159,7 +159,6 @@ namespace CursoEntityCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         [HttpGet]
         public IActionResult BorrarMultiple5()
         {
