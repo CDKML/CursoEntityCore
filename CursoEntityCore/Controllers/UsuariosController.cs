@@ -43,14 +43,14 @@ namespace CursoEntityCore.Controllers
 
 
         [HttpGet]
-        public IActionResult Editar(int? id)
+        public IActionResult Editar(Guid? id)
         {
             if (id == null)
             {
                 return View();
             }
 
-            var usuario = _contexto.Usuario.FirstOrDefault(c => c.DetalleUsuario_Id == id);
+            var usuario = _contexto.Usuario.FirstOrDefault(c => c.Id == id);
             return View(usuario);
         }
 
@@ -68,9 +68,9 @@ namespace CursoEntityCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Borrar(int? id)
+        public IActionResult Borrar(Guid? id)
         {
-            var usuario = _contexto.Usuario.FirstOrDefault(c => c.DetalleUsuario_Id == id);
+            var usuario = _contexto.Usuario.FirstOrDefault(c => c.Id == id);
             _contexto.Usuario.Remove(usuario);
             _contexto.SaveChanges();
             return RedirectToAction(nameof(Index));
