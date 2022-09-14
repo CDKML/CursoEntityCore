@@ -42,7 +42,7 @@ namespace CursoEntityCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Editar(Guid? id)
+        public IActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -67,7 +67,7 @@ namespace CursoEntityCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Borrar(Guid? id)
+        public IActionResult Borrar(int? id)
         {
             var usuario = _contexto.Usuario.FirstOrDefault(u => u.Id == id);
             _contexto.Usuario.Remove(usuario);
@@ -76,7 +76,7 @@ namespace CursoEntityCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Detalle(Guid? id)
+        public IActionResult Detalle(int? id)
         {
             if(id == null)
             {
