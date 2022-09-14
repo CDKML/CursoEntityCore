@@ -107,7 +107,7 @@ namespace CursoEntityCore.Controllers
 
             foreach (var categoria in listaCategorias)
             {
-                categorias.Add(new Categoria { 
+                categorias.Add(new Categoria {
                     Nombre = categoria
                 });
             }

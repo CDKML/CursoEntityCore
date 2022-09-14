@@ -8,7 +8,7 @@
 <br />
 <h3 class="text-center">Editar una etiqueta</h3>
 <form method="post" asp-action="Editar">
-
+    @Html.AntiForgeryToken()
     <!--Importante para editar-->
     <input type="hidden" asp-for="Etiqueta_Id" />
 
