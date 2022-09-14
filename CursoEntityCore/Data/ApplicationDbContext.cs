@@ -23,6 +23,13 @@ namespace CursoEntityCore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ArticuloEtiqueta>().HasKey(ae => new { ae.Etiqueta_Id, ae.Articulo_Id });
+
+            //Siembra de datos en este método
+            var categoria7 = new Categoria() { Categoria_Id = 41, Nombre = "Categoría 7", FechaCreacion = new DateTime(2022, 09, 13), Activo = true};
+            var categoria8 = new Categoria() { Categoria_Id = 42, Nombre = "Categoría 8", FechaCreacion = new DateTime(2022, 09, 14), Activo = false};
+            modelBuilder.Entity<Categoria>().HasData(new Categoria[] { categoria8});
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

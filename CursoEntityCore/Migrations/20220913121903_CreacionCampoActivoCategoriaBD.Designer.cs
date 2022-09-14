@@ -4,6 +4,7 @@ using CursoEntityCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoEntityCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220913121903_CreacionCampoActivoCategoriaBD")]
+    partial class CreacionCampoActivoCategoriaBD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,7 @@ namespace CursoEntityCore.Migrations
 
                     b.HasIndex("Categoria_Id");
 
-                    b.ToTable("Tbl_Articulo", (string)null);
+                    b.ToTable("Tbl_Articulo");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.ArticuloEtiqueta", b =>
@@ -69,7 +71,7 @@ namespace CursoEntityCore.Migrations
 
                     b.HasIndex("Articulo_Id");
 
-                    b.ToTable("ArticuloEtiqueta", (string)null);
+                    b.ToTable("ArticuloEtiqueta");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.Categoria", b =>
@@ -92,16 +94,7 @@ namespace CursoEntityCore.Migrations
 
                     b.HasKey("Categoria_Id");
 
-                    b.ToTable("Categoria", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Categoria_Id = 42,
-                            Activo = false,
-                            FechaCreacion = new DateTime(2022, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nombre = "Categoría 8"
-                        });
+                    b.ToTable("Categoria");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.DetalleUsuario", b =>
@@ -124,7 +117,7 @@ namespace CursoEntityCore.Migrations
 
                     b.HasKey("DetalleUsuario_Id");
 
-                    b.ToTable("DetalleUsuario", (string)null);
+                    b.ToTable("DetalleUsuario");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.Etiqueta", b =>
@@ -143,7 +136,7 @@ namespace CursoEntityCore.Migrations
 
                     b.HasKey("Etiqueta_Id");
 
-                    b.ToTable("Etiqueta", (string)null);
+                    b.ToTable("Etiqueta");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.Usuario", b =>
@@ -152,7 +145,7 @@ namespace CursoEntityCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("DetalleUsuario_Id")
+                    b.Property<int>("DetalleUsuario_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Direccion")
@@ -167,10 +160,9 @@ namespace CursoEntityCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DetalleUsuario_Id")
-                        .IsUnique()
-                        .HasFilter("[DetalleUsuario_Id] IS NOT NULL");
+                        .IsUnique();
 
-                    b.ToTable("Usuario", (string)null);
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.Articulo", b =>
@@ -207,7 +199,9 @@ namespace CursoEntityCore.Migrations
                 {
                     b.HasOne("CursoEntityCore.Models.DetalleUsuario", "DetalleUsuario")
                         .WithOne("Usuario")
-                        .HasForeignKey("CursoEntityCore.Models.Usuario", "DetalleUsuario_Id");
+                        .HasForeignKey("CursoEntityCore.Models.Usuario", "DetalleUsuario_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("DetalleUsuario");
                 });
