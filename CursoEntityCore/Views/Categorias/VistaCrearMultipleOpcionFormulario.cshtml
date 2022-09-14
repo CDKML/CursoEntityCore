@@ -8,6 +8,7 @@
 <br />
 <h3 class="text-center">Crear 5 categorías</h3>
 <form method="post" asp-action="CrearMultipleOpcionFormulario">
+    @Html.AntiForgeryToken()
     <div class="row">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-12 mt-4">
