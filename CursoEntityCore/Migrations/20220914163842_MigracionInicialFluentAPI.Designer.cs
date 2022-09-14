@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoEntityCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220913133912_SiembraDatosCategoriaBD")]
-    partial class SiembraDatosCategoriaBD
+    [Migration("20220914163842_MigracionInicialFluentAPI")]
+    partial class MigracionInicialFluentAPI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace CursoEntityCore.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("TituloArticulo")
                         .IsRequired()
@@ -56,7 +56,7 @@ namespace CursoEntityCore.Migrations
 
                     b.HasIndex("Categoria_Id");
 
-                    b.ToTable("Tbl_Articulo");
+                    b.ToTable("Tbl_Articulo", (string)null);
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.ArticuloEtiqueta", b =>
@@ -86,7 +86,7 @@ namespace CursoEntityCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -95,22 +95,6 @@ namespace CursoEntityCore.Migrations
                     b.HasKey("Categoria_Id");
 
                     b.ToTable("Categoria");
-
-                    b.HasData(
-                        new
-                        {
-                            Categoria_Id = 41,
-                            Activo = true,
-                            FechaCreacion = new DateTime(2022, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nombre = "Categoría 7"
-                        },
-                        new
-                        {
-                            Categoria_Id = 42,
-                            Activo = false,
-                            FechaCreacion = new DateTime(2022, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nombre = "Categoría 8"
-                        });
                 });
 
             modelBuilder.Entity("CursoEntityCore.Models.DetalleUsuario", b =>
@@ -145,7 +129,7 @@ namespace CursoEntityCore.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Etiqueta_Id"), 1L, 1);
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Titulo")
                         .HasColumnType("nvarchar(max)");
@@ -157,11 +141,13 @@ namespace CursoEntityCore.Migrations
 
             modelBuilder.Entity("CursoEntityCore.Models.Usuario", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<int>("DetalleUsuario_Id")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("DetalleUsuario_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Direccion")
@@ -176,7 +162,8 @@ namespace CursoEntityCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DetalleUsuario_Id")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[DetalleUsuario_Id] IS NOT NULL");
 
                     b.ToTable("Usuario");
                 });
@@ -201,7 +188,7 @@ namespace CursoEntityCore.Migrations
                         .IsRequired();
 
                     b.HasOne("CursoEntityCore.Models.Etiqueta", "Etiqueta")
-                        .WithMany()
+                        .WithMany("ArticuloEtiqueta")
                         .HasForeignKey("Etiqueta_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -215,9 +202,7 @@ namespace CursoEntityCore.Migrations
                 {
                     b.HasOne("CursoEntityCore.Models.DetalleUsuario", "DetalleUsuario")
                         .WithOne("Usuario")
-                        .HasForeignKey("CursoEntityCore.Models.Usuario", "DetalleUsuario_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CursoEntityCore.Models.Usuario", "DetalleUsuario_Id");
 
                     b.Navigation("DetalleUsuario");
                 });
@@ -235,6 +220,11 @@ namespace CursoEntityCore.Migrations
             modelBuilder.Entity("CursoEntityCore.Models.DetalleUsuario", b =>
                 {
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("CursoEntityCore.Models.Etiqueta", b =>
+                {
+                    b.Navigation("ArticuloEtiqueta");
                 });
 #pragma warning restore 612, 618
         }
