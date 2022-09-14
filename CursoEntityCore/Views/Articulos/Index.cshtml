@@ -21,7 +21,7 @@
                 <th>@Html.DisplayNameFor(a => a.Descripcion)</th>
                 <th>@Html.DisplayNameFor(a => a.Fecha)</th>
                 <th>@Html.DisplayNameFor(a => a.Calificacion)</th>
-                <th>@Html.DisplayNameFor(a => a.Categoria_Id)</th>
+                <th>@Html.DisplayNameFor(a => a.Categoria)</th>
                 <th></th>
             </tr>
             @foreach (var articulo in Model)
@@ -32,7 +32,7 @@
                     <td>@articulo.Descripcion</td>
                     <td>@articulo.Fecha</td>
                     <td>@articulo.Calificacion</td>
-                    <td>@articulo.Categoria_Id</td>
+                    <td>@articulo.Categoria.Nombre</td>
                     <td>
                         <a class="btn btn-primary textwhite" asp-action="Editar" asp-route-id="@articulo.Articulo_Id">Editar</a>
                         <a class="btn btn-danger textwhite" asp-action="Borrar" asp-route-id="@articulo.Articulo_Id">Borrar</a>
