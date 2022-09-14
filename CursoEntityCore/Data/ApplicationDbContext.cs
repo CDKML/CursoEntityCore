@@ -57,6 +57,25 @@ namespace CursoEntityCore.Data
             modelBuilder.Entity<Etiqueta>().HasKey(e => e.Etiqueta_Id);
             modelBuilder.Entity<Etiqueta>().Property(e => e.Fecha).HasColumnType("date");
 
+            //Fluent API: relación de uno a uno entre Usuario y DetalleUsuario
+            modelBuilder.Entity<Usuario>()
+                .HasOne(u => u.DetalleUsuario)
+                .WithOne(u => u.Usuario).HasForeignKey<Usuario>("DetalleUsuario_Id");
+
+            //Fluent API: relación de uno a muchos entre Categoria y Articulo
+            modelBuilder.Entity<Articulo>()
+                .HasOne(a => a.Categoria)
+                .WithMany(a => a.Articulo).HasForeignKey(a => a.Categoria_Id);
+
+            //Fluent API: relación de muchos a muchos entre Articulo y Etiqueta
+            modelBuilder.Entity<ArticuloEtiqueta>().HasKey(ae => new { ae.Etiqueta_Id, ae.Articulo_Id });
+            modelBuilder.Entity<ArticuloEtiqueta>()
+                .HasOne(a => a.Articulo)
+                .WithMany(a => a.ArticuloEtiqueta).HasForeignKey(a => a.Articulo_Id);
+            modelBuilder.Entity<ArticuloEtiqueta>()
+                .HasOne(a => a.Etiqueta)
+                .WithMany(a => a.ArticuloEtiqueta).HasForeignKey(a => a.Etiqueta_Id);
+
             base.OnModelCreating(modelBuilder);
         }
     }
