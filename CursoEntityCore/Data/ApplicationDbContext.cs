@@ -22,6 +22,9 @@ namespace CursoEntityCore.Data
         
         public DbSet<ArticuloEtiqueta> ArticuloEtiqueta { get; set; }
 
+        //Desde Vista SQL
+        public DbSet<CategoriaDesdeVista> CategoriaDesdeVista { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<ArticuloEtiqueta>().HasKey(ae => new { ae.Etiqueta_Id, ae.Articulo_Id });
@@ -75,6 +78,9 @@ namespace CursoEntityCore.Data
             modelBuilder.Entity<ArticuloEtiqueta>()
                 .HasOne(a => a.Etiqueta)
                 .WithMany(a => a.ArticuloEtiqueta).HasForeignKey(a => a.Etiqueta_Id);
+
+            //Carga desde una vista SQL sin llave primaria
+            modelBuilder.Entity<CategoriaDesdeVista>().HasNoKey().ToView("ObtenerCategorias");
 
             base.OnModelCreating(modelBuilder);
         }
