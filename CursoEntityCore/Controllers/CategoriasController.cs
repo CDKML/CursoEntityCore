@@ -201,5 +201,33 @@ namespace CursoEntityCore.Controllers
 
             var test = "";
         }
+
+        public void TestIEnumerable()
+        {
+            //1- Código con IEnumerable
+            IEnumerable<Categoria> listaCategorias = _contexto.Categoria;
+            var categoriasActivas = listaCategorias.Where(a => a.Activo == true).ToList();
+            //2- Consulta resultante
+            /*
+             * SELECT [c].[Categoria_Id], [c].[Activo]. [c].[FechaCreacion], [c].[Nombre]
+             * FROM [Categoria] AS[c]
+            */
+            //3- El filtro del where se aplica en memoria del lado del cliente
+        }
+
+        public void TestIQueryable()
+        {
+            //1- Código con IQueryable
+            //IQueryable hereda de IEnumerable
+            //Todo lo que se puede hacer con IEnumerable se puede hacer con IQueryable
+            IQueryable<Categoria> listaCategorias = _contexto.Categoria;
+            var categoriasActivas = listaCategorias.Where(a => a.Activo == true).ToList();
+            //2- Consulta resultante
+            /*
+             * SELECT [c].[Categoria_Id], [c].[Activo]. [c].[FechaCreacion], [c].[Nombre]
+             * FROM [Categoria] AS[c]
+             * WHERE[c].[Activo] = CAST (1 AS bit)
+            */
+        }
     }
 }
