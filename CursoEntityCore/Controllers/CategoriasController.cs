@@ -167,5 +167,83 @@ namespace CursoEntityCore.Controllers
             _contexto.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        //Ejecución diferida
+        //Las consultas EF Core no se ejecutan cuando son creadas. Se ejecutan según los siguientes escenarios
+        //más información: https://docs.microsoft.com/es-es/dotnet/framework/data/adonet/ef/language-reference/query-execution
+        [HttpGet]
+        public void EjecucionDiferida()
+        {
+            //1-Cuando se hace una iteración sobre ellos. Ejemplo:
+            var categorias = _contexto.Categoria;
+
+            foreach (var categoria in categorias)
+            {
+                var nombreCat = "";
+                nombreCat = categoria.Nombre;
+            }
+
+            //2-Cuando se llama a cualquiera de los métodos: ToDictionary, ToList, ToArray
+            var categorias2 = _contexto.Categoria.ToList();
+
+            foreach (var categoria in categorias2)
+            {
+                var nombreCat = "";
+                nombreCat = categoria.Nombre;
+            }
+
+            //3-Cuando se llama cualquier método que retorna un solo objeto:
+            //First, Single, COunt, Max, entre otros
+            var categorias3 = _contexto.Categoria;
+            var totalCategorias = categorias3.Count();
+
+            var totalCategorias2 = _contexto.Categoria.Count();
+
+            var test = "";
+        }
+
+        public void TestIEnumerable()
+        {
+            //1- Código con IEnumerable
+            IEnumerable<Categoria> listaCategorias = _contexto.Categoria;
+            var categoriasActivas = listaCategorias.Where(a => a.Activo == true).ToList();
+            //2- Consulta resultante
+            /*
+             * SELECT [c].[Categoria_Id], [c].[Activo]. [c].[FechaCreacion], [c].[Nombre]
+             * FROM [Categoria] AS[c]
+            */
+            //3- El filtro del where se aplica en memoria del lado del cliente
+        }
+
+        public void TestIQueryable()
+        {
+            //1- Código con IQueryable
+            //IQueryable hereda de IEnumerable
+            //Todo lo que se puede hacer con IEnumerable se puede hacer con IQueryable
+            IQueryable<Categoria> listaCategorias = _contexto.Categoria;
+            var categoriasActivas = listaCategorias.Where(a => a.Activo == true).ToList();
+            //2- Consulta resultante
+            /*
+             * SELECT [c].[Categoria_Id], [c].[Activo]. [c].[FechaCreacion], [c].[Nombre]
+             * FROM [Categoria] AS[c]
+             * WHERE[c].[Activo] = CAST (1 AS bit)
+            */
+        }
+
+        public void TestUpdate()
+        {
+            var datoUsuario = _contexto.Usuario.Include(d => d.DetalleUsuario).FirstOrDefault(d => d.Id == 2);
+            datoUsuario.DetalleUsuario.Deporte = "Natación";
+            _contexto.Update(datoUsuario);
+            _contexto.SaveChanges();
+        }
+
+        public void TestAttach()
+        {
+            var datoUsuario = _contexto.Usuario.Include(d => d.DetalleUsuario).FirstOrDefault(d => d.Id == 2);
+            datoUsuario.DetalleUsuario.Deporte = "Ciclismo";
+            _contexto.Attach(datoUsuario);
+            _contexto.SaveChanges();
+        }
     }
 }
