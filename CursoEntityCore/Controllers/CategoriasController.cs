@@ -229,5 +229,21 @@ namespace CursoEntityCore.Controllers
              * WHERE[c].[Activo] = CAST (1 AS bit)
             */
         }
+
+        public void TestUpdate()
+        {
+            var datoUsuario = _contexto.Usuario.Include(d => d.DetalleUsuario).FirstOrDefault(d => d.Id == 2);
+            datoUsuario.DetalleUsuario.Deporte = "Natación";
+            _contexto.Update(datoUsuario);
+            _contexto.SaveChanges();
+        }
+
+        public void TestAttach()
+        {
+            var datoUsuario = _contexto.Usuario.Include(d => d.DetalleUsuario).FirstOrDefault(d => d.Id == 2);
+            datoUsuario.DetalleUsuario.Deporte = "Ciclismo";
+            _contexto.Attach(datoUsuario);
+            _contexto.SaveChanges();
+        }
     }
 }
