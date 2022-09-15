@@ -167,5 +167,39 @@ namespace CursoEntityCore.Controllers
             _contexto.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        //Ejecución diferida
+        //Las consultas EF Core no se ejecutan cuando son creadas. Se ejecutan según los siguientes escenarios
+        //más información: https://docs.microsoft.com/es-es/dotnet/framework/data/adonet/ef/language-reference/query-execution
+        [HttpGet]
+        public void EjecucionDiferida()
+        {
+            //1-Cuando se hace una iteración sobre ellos. Ejemplo:
+            var categorias = _contexto.Categoria;
+
+            foreach (var categoria in categorias)
+            {
+                var nombreCat = "";
+                nombreCat = categoria.Nombre;
+            }
+
+            //2-Cuando se llama a cualquiera de los métodos: ToDictionary, ToList, ToArray
+            var categorias2 = _contexto.Categoria.ToList();
+
+            foreach (var categoria in categorias2)
+            {
+                var nombreCat = "";
+                nombreCat = categoria.Nombre;
+            }
+
+            //3-Cuando se llama cualquier método que retorna un solo objeto:
+            //First, Single, COunt, Max, entre otros
+            var categorias3 = _contexto.Categoria;
+            var totalCategorias = categorias3.Count();
+
+            var totalCategorias2 = _contexto.Categoria.Count();
+
+            var test = "";
+        }
     }
 }
